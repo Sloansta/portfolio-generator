@@ -144,9 +144,16 @@ promptUser()
     const pageHTML = generatePage(portfolioData);
 //console.log(commandLineArgs)
 
-fs.writeFile('./index.html', pageHTML, err => {
-    if (err) throw err;
+    fs.writeFile('./dist/index.html', pageHTML, err => {
+        if (err) throw err;
 
-    console.log('Portfolio complete!');
-});
-});
+        console.log('Portfolio complete!');
+
+        fs.copyFile('./src/style.css', './dist/style.css', err => {
+            if(err) {
+                console.log(err);
+                return;
+            }
+        });
+    });
+}).catch(err => console.log(err));
